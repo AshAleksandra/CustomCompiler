@@ -24,4 +24,16 @@ extern int len;
 */
 extern int line;
 
+static int lookahead;
+
+/*
+ * Esta funcion usa un simple, y almacenado, sistema de entrada, obtener caracteres una línea a la vez desde la entrada estándar, y luego aislando tokens uno a uno de la linea.
+ * @return {int} - Codigo del token
+*/
+int lex();
+
+int match(int token);
+
+void advance();
+
 #endif
