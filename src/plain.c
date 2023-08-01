@@ -8,18 +8,17 @@ void statements()
      * statements  -> expresion SEMI
      *              | expresion SEMI statements
      */
-    expressions();
-    if (match(SEMI))
+    while (match(SEMI))
     {
-        advance();
-    }
-    else
-    {
-        fprintf(stderr, "%d: Inserting missing semicolon\n", line);
-    }
-    if (!match(EOI))
-    {
-        statements(); /* Do another statements */
+        expressions();
+        if (match(SEMI))
+        {
+            advance();
+        }
+        else
+        {
+            fprintf(stderr, "%d: Inserting missing semicolon\n", line);
+        }
     }
 }
 
