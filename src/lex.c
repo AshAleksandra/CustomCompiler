@@ -38,12 +38,12 @@ int lex(){
 
             switch (*current)
             {
-                case EOF: printf("{ token: EOF, value: %c } \n", *current); return EOI;
-                case ';': printf("{ token: SEMI, value: %c } \n", *current); return SEMI;
-                case '+': printf("{ token: PLUS, value: %c } \n", *current); return PLUS;
-                case '*': printf("{ token: TIMES, value: %c } \n", *current); return TIMES;
-                case '(': printf("{ token: LP, value: %c } \n", *current); return LP;
-                case ')': printf("{ token: RP, value: %c } \n", *current); return RP;
+                case EOF: return EOI;
+                case ';': return SEMI;
+                case '+': return PLUS;
+                case '*': return TIMES;
+                case '(': return LP;
+                case ')': return RP;
                 case '\n':
                 case '\t':
                 case ' ': break;
@@ -54,11 +54,10 @@ int lex(){
                     }
                     else
                     {
-                        while (!isalnum(*current))
+                        while (isalnum(*current))
                         {
                             ++current;
                         }
-                        printf("{ token: NUM_OR_ID, value: %c } \n", *current);
                         len = current - text;
                         return NUM_OR_ID;
                     }

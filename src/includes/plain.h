@@ -2,10 +2,8 @@
 #define PLAIN_H
 
 void statements();
-void expressions();
-void term();
-void expr_prime();
-void term_prime();
-void factor();
+void expressions(char *tempvar);
+void term(char *tempvar);
+void factor(char *tempvar);
 
 #endif

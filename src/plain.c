@@ -1,5 +1,6 @@
 #include "includes/plain.h"
 #include "includes/lex.h"
+#include "includes/name.h"
 #include <stdio.h>
 
 void statements()
@@ -8,9 +9,11 @@ void statements()
      * statements  -> expresion SEMI
      *              | expresion SEMI statements
      */
-    while (match(SEMI))
+    char *tempvar;
+    while (!match(EOI))
     {
-        expressions();
+        expressions(tempvar = newname());
+        freename(tempvar);
         if (match(SEMI))
         {
             advance();
@@ -22,41 +25,48 @@ void statements()
     }
 }
 
-void expressions()
+void expressions(char *tempvar)
 {
     /* expression -> term expression */
-    term();
+    char *tempvar2;
+    term(tempvar);
     while (match(PLUS))
     {
         advance();
-        term();
+        term(tempvar2 = newname());
+        printf(" %s += %s \n", tempvar, tempvar2);
+        freename(tempvar2);
     }
 }
 
-void term()
+void term(char *tempvar)
 {
     /* term -> factor term*/
-    factor();
+    char *tempvar2;
+    factor(tempvar);
     while (match(TIMES))
     {
         advance();
-        factor();
+        factor(tempvar2 = newname());
+        printf(" %s += %s \n", tempvar, tempvar2);
+        freename(tempvar2);
     }
 }
 
-void factor()
+void factor(char *tempvar)
 {
     /* factor -> NUM_OR_ID
      *         | LP expression RP
      */
     if (match(NUM_OR_ID))
     {
+        printf(" %s = %0.*s\n", tempvar, len, text);
         advance();
     }
     else if (match(LP))
     {
         advance();
-        expressions();
+        expressions(tempvar);
         if (match(RP))
         {
             advance();
