@@ -26,19 +26,10 @@ void expressions()
 {
     /* expression -> term expression */
     term();
-    expr_prime();
-}
-
-void expr_prime()
-{
-    /* expresson -> PLUS term expression
-     *            | epsilon
-     */
-    if (match(PLUS))
+    while (match(PLUS))
     {
         advance();
         term();
-        expr_prime();
     }
 }
 
@@ -46,18 +37,10 @@ void term()
 {
     /* term -> factor term*/
     factor();
-}
-
-void term_prime()
-{
-    /* expresson -> TIMES factor expression
-     *            | epsilon
-     */
-    if (match(TIMES))
+    while (match(TIMES))
     {
         advance();
         factor();
-        term_prime();
     }
 }
 
